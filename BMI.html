@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            padding: 0px;
+            margin: 0px;
+            background-color: wheat;
+            display: flex;
+            justify-content: center;
+
+        }
+
+        .BMI {
+            width: 600px;
+            height: 350px;
+            background-color: slategray;
+            margin-top: 100px;
+            border-radius: 15px
+        }
+
+        .boxA h2 {
+            text-align: center;
+        }
+
+        .content {
+            width: 100%;
+            height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+        }
+
+        .buton {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .boxB {
+            width: 600px;
+            height: 220px;
+            background-color: slategray;
+            margin-top: 200px;
+            border-radius: 15px;
+        }
+
+        .boxB p {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="BMI">
+        <div class="boxA">
+            <h2>BMI計算器</h2>
+            <div class="content">
+                <p>請輸入身高(cm)<input type="text" id="tall"></p>
+                <p>請輸入體重(kg)<input type="text" id="weight"></p>
+            </div>
+
+            <input type="button" class="sendBtn" value="開始計算">
+            <input type="button" class="reset" value="重新計算">
+
+        </div>
+        <div class="boxB">
+            <p>你的BMI值:<span class="bmitext"></span></p>
+            <br />
+            <p>提醒:<span class="status"></span></p>
+            <p>建議:<span class="suggest"></span></p>
+
+        </div>
+    </div>
+    <script>
+
+        var bmi = document.querySelector('.bmitext'); //bmi數值
+        var btn = document.querySelector('.sendBtn'); //開始計算
+        var reset = document.querySelector('.reset'); //重新計算
+        var res = document.querySelector('.status'); //體重範圍
+        var sug = document.querySelector('.suggest'); //建議
+        var tall = document.querySelector('#tall'); // 身高input
+        var weight = document.querySelector('#weight'); // 體重input
+
+        // 清空數值
+        reset.addEventListener('click', function () {
+            tall.value = '';
+            weight.value = '';
+            bmi.innerHTML = '';
+            res.innerHTML = '';
+            sug.innerHTML = '';
+        })
+
+        // 開始計算
+        btn.addEventListener('click', function () {
+            let h = tall.value;
+            let w = weight.value;
+            // BMI運算,toFixed(小數點到第二位)
+            var BMI = (w / ((h / 100) * (h / 100))).toFixed(2);
+            console.log(bmi);
+            // 回傳到bmi
+            bmi.innerHTML = BMI;
+
+            // BMI條件
+            if (BMI < 18.5) {
+                res.innerHTML = ("體重過輕");
+                sug.innerHTML = ('該多吃點喔~');
+            } else if (BMI >= 18.5 && BMI < 24) {
+                res.innerHTML = ("體重正常");
+                sug.innerHTML = ('保持得很好,太棒了~');
+            } else if (BMI >= 24 && BMI < 27) {
+                res.innerHTML = ("過重");
+                sug.innerHTML = ('稍微過重,還行拉');
+            } else if (BMI >= 27 && BMI < 30) {
+                res.innerHTML = ("輕度肥胖");
+                sug.innerHTML = ('是不是該注意一下喔');
+            } else if (BMI >= 30 && BMI < 35) {
+                res.innerHTML = ("中度肥胖");
+                sug.innerHTML = ('該減肥嚕~');
+            } else if (BMI >= 35) {
+                res.innerHTML = ("重度肥胖");
+                sug.innerHTML = ('BMI什麼的都是假的!');
+            }
+        })
+
+
+    </script>
+</body>
+
+</html>
